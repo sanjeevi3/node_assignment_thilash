@@ -37,7 +37,7 @@ exports.update=(req,res)=>{
     })
 }
 exports.delete=(req,res)=>{
-    const data=req.params.id?req.params.id:null;
+    const data=req.params.id;
     model.delete(data).then(data=>{
         if(data.valid){
             res.status(200).json({
@@ -52,5 +52,17 @@ exports.delete=(req,res)=>{
     })
 }
 exports.get=(req,res)=>{
-    
+    const data=req.params.id?req.params.id:0;
+    model.get(data).then(data=>{
+        if(data){
+            res.status(200).json({
+                post:req.params.id?data[0]:data
+            })
+        }
+        else{
+            res.status(400).json({
+                message:"post was not found."
+            })
+        }
+    })
 }

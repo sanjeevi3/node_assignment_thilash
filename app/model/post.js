@@ -50,6 +50,20 @@ exports.delete=(data)=>new Promise((resolve,reject)=>{
         reject(error);
     }
 })
-exports.get=(data)=>{
-    
-}
+exports.get=(data)=>new Promise((resolve,reject)=>{
+    try {
+        databaseConfig().query("CALL get_post(?)",
+            data,
+            (err, res) => {
+                if (err) {
+                    reject(err);
+                } else {
+
+                    resolve(res[0]);
+                }
+            }
+        );
+    } catch (error) {
+        reject(error);
+    }
+})
